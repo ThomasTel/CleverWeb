@@ -10,7 +10,7 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
 });
 
 function scoreToIQ(val) {
-   return 100+(60-val)/2;
+   return 90+(60-val)/2;
 }
 
 function score(text){
