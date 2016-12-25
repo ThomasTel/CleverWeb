@@ -1,14 +1,17 @@
 chrome.runtime.onMessage.addListener(function(request, sender) {
   if (request.action == "getSource") {
     var t = JSON.parse(request.source);
-    //t[0] = '<ul> allo </ul> putain de merde';
-    t[0] = t[0].replace(/<.*?>/g, "");
-    //t[0] = "Visit Microsoft!";
-    //t[0] = t[0].replace("Microsoft", "W3Schools");
-    message.innerText = t[0];
-    //alert(score(txt).score); //t[0];
+    var txt = "";
+    for(var i = 0; i < t.length; i++)
+       txt += t[i].replace(/<.*?>/g, "") + " ";
+    
+    message.innerText = scoreToIQ(score(txt).score) + " " + txt;
   }
 });
+
+function scoreToIQ(val) {
+   return 100+(60-val)/2;
+}
 
 function score(text){
   return {
@@ -50,27 +53,10 @@ function countSyllables(word){
   return word.match(/[aeiouy]{1,2}/g).length; 
   return 1;
 }
- 
-var txt = 'The foregoing warranties by each party are in lieu of all other warranties, express or implied, with respect to this agreement, including but not limited to implied warranties of merchantability and fitness for a particular purpose. Neither party shall have any liability whatsoever for any cover or setoff nor for any indirect, consequential, exemplary, incidental or punitive damages, including lost profits, even if such party has been advised of the possibility of such damages.';
-
 
 function onWindowLoad() {
 
   var message = document.querySelector('#message');
-
-  /*message.innerText = document.getElementsByTagName("p")[0].innerHTML;
-  //console.log(document.getElementsByTagName("p").length + "?");
-  
-  var bkg = chrome.extension.getBackgroundPage();
-  if(bkg == null)
-     alert('fuck');
-  else
-     alert('cool');
-   bkg.console.log('foo');
-   bkr.console.error('test1');
-   
-   console.log('lol');
-   console.error('test2');*/
    
   message.innerText = 
   chrome.tabs.executeScript(null, {
