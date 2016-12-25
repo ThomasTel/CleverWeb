@@ -5,7 +5,7 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
     for(var i = 0; i < t.length; i++)
        txt += t[i].replace(/<.*?>/g, "") + " ";
     
-    message.innerText = scoreToIQ(score(txt).score) + " " + txt;
+    message.innerText = scoreToIQ(score(txt).score); // + " " + txt; //display the text analyzed
   }
 });
 
